@@ -24,23 +24,23 @@ public class DataManager : SingletoneBase<DataManager>
         }
     }
 
-    private DataBase<UpgradeLevelData> levelDb;
-    public DataBase<UpgradeLevelData> LevelDb
+    private DataBase<UpgradeLevelData> upgradeLevelDb;
+    public DataBase<UpgradeLevelData> UpgradeLevelDb
     {
         get
         {
-            if (Instance.levelDb == null)
+            if (Instance.upgradeLevelDb == null)
             {
                 List<UpgradeLevelData> tempList = new List<UpgradeLevelData>();
                 // tempList = read levelDB.json file
                 // 
 
-                Instance.levelDb = new DataBase<UpgradeLevelData>(tempList);
+                Instance.upgradeLevelDb = new DataBase<UpgradeLevelData>(tempList);
             }
 
 
 
-            return Instance.levelDb;
+            return Instance.upgradeLevelDb;
         }
     }
 
