@@ -1,7 +1,8 @@
 
 
+using System;
+using System.Collections;
 using System.Numerics;
-using TMPro;
 using UnityEngine;
 
 public class EnemyHealthSystem : MonoBehaviour
@@ -11,9 +12,10 @@ public class EnemyHealthSystem : MonoBehaviour
     private BigInteger maxHealth;
     private BigInteger currentHealth;
     
+    public event Action OnDeath;
     public void Initialize(int stage)
     {
-        float randomValue = Random.Range(-0.05f, 0.05f);
+        float randomValue = UnityEngine.Random.Range(-0.05f, 0.05f);
         maxHealth = initialHealth;
         currentHealth = maxHealth;
     }
@@ -21,6 +23,11 @@ public class EnemyHealthSystem : MonoBehaviour
     public void ChangeHealth(BigInteger value)
     {
         currentHealth -= value;
+
+        if(currentHealth <= 0)
+        {
+            OnDeath?.Invoke();
+        }
     }
 
     private string[] numberUnitArr = new string[] { "", "K", "M", "B", "T" };
@@ -33,5 +40,19 @@ public class EnemyHealthSystem : MonoBehaviour
             placeN++;
         }
         return value.ToString() + numberUnitArr[placeN];
+    }
+
+    private void OnClick()
+    {
+        //BigInteger clickDamage = DataManager.Instance.UpgradeDb.get
+    }
+
+    IEnumerator AutoClick(int level)
+    {
+        while (true)
+        {
+            yield return null;
+
+        }
     }
 }

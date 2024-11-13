@@ -1,9 +1,12 @@
 
 
 using System.Collections.Generic;
+using UnityEngine;
 
 public class DataManager : SingletoneBase<DataManager>
 {
+    private string dataPath = $"{Application.dataPath}/Data/";
+
     private DataBase<UpgradeData> upgradeDb;
     public DataBase<UpgradeData> UpgradeDb
     {
@@ -44,5 +47,24 @@ public class DataManager : SingletoneBase<DataManager>
         }
     }
 
+    private DataBase<SpecialUpgradeData> specialUpgradeLevelDb;
+    public DataBase<SpecialUpgradeData> SpecialUpgradeLevelDb
+    {
+        get
+        {
+            if (Instance.specialUpgradeLevelDb == null)
+            {
+                List<SpecialUpgradeData> tempList = new List<SpecialUpgradeData>();
+                // tempList = read levelDB.json file
+                // 
+
+                Instance.specialUpgradeLevelDb = new DataBase<SpecialUpgradeData>(tempList);
+            }
+
+
+
+            return Instance.specialUpgradeLevelDb;
+        }
+    }
 
 }
