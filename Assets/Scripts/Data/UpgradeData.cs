@@ -16,6 +16,7 @@ public class UpgradeData : DataModel
     public string spritePath;
     public float plusDamage;
 
+
     public UpgradeData(int upgradeID, string name, string description, UpgradeType type, float plusDamage, string spritePath)
     {
         this.id = upgradeID;

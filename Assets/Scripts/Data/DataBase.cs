@@ -17,7 +17,7 @@ public class DataBase<T> where T : DataModel
         }
     }
 
-    public T get(int id)
+    public T Get(int id)
     {
         if (db.ContainsKey(id)) return db[id];
 
