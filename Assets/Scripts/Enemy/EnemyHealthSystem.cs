@@ -24,9 +24,9 @@ public class EnemyHealthSystem : MonoBehaviour
     private void Start()
     {
         OnDeath += DropGold;
+        OnDeath += NextRound;
         Initialize(DataManager.Instance.maxStage);
-        autoClickLevel = DataManager.UpgradeLevelDb.Get(autoClickUpgradeId).level;
-        StartCoroutine(AutoClick(autoClickLevel));
+        StartCoroutine(AutoClick());
     }
     public void Initialize(int stage)
     {
@@ -34,7 +34,7 @@ public class EnemyHealthSystem : MonoBehaviour
         //maxHealth = (BigInteger)initialHealth * (BigInteger)(MathF.Pow(increasePower, stage) * 100) / 100;
         maxHealth = (int)(initialHealth * Mathf.Pow(increasePower, stage));
         currentHealth = maxHealth;
-        int rand = UnityEngine.Random.Range(0, spritePath.Length);
+        //int rand = UnityEngine.Random.Range(0, spritePath.Length);
         //enemyImg.sprite = Resources.Load<Sprite>(spritePath[rand]);
         enemyImg.color = Color.white;
     }
@@ -49,7 +49,6 @@ public class EnemyHealthSystem : MonoBehaviour
             enemyButton.enabled = false;
             currentHealth = 0;
             OnDeath?.Invoke();
-            StartCoroutine(SpawnEnemy());
         }
     }
 
@@ -59,28 +58,6 @@ public class EnemyHealthSystem : MonoBehaviour
         Initialize(GameManager.Instance.currentStageIndex);
         enemyButton.enabled = true;
     }
-
-    //private string[] numberUnitArr = new string[] { "", "K", "M", "B", "T" };
-    //public string GetNumberText(BigInteger initialValue)
-    //{
-    //    int placeN = 0;
-    //    BigInteger value = initialValue;
-    //    while (value >= 1000 && placeN < numberUnitArr.Length - 1)
-    //    {
-    //        value /= 1000;
-    //        placeN++;
-    //    }
-
-    //    if (placeN > 4)
-    //    {
-    //        string initialValueToString = initialValue.ToString();
-    //        string firstThreeDigit = initialValueToString.Substring(0, 3);
-    //        string nextTwoDigit = initialValueToString.Substring(3, 2);
-
-    //        return firstThreeDigit + "." + nextTwoDigit + "e" + $"{BigInteger.Log10(initialValue) - 2}";
-    //    }
-    //    return value.ToString() + numberUnitArr[placeN];
-    //}
 
     public void OnClick()
     {
@@ -96,14 +73,14 @@ public class EnemyHealthSystem : MonoBehaviour
         ChangeHealth(clickDamage);
     }
 
-    IEnumerator AutoClick(int AutoClickLevel)
+    IEnumerator AutoClick()
     {
         while (true)
         {
             for(int i=0; i<5; i++)
             {
                 yield return new WaitForSeconds(1f);
-                OnClick((AutoClickLevel - i) / 5);              // 매 초 마다 자동클릭 레벨에 따라 자동클릭 하기
+                OnClick((DataManager.UpgradeLevelDb.Get(autoClickUpgradeId).level - i) / 5);              // 매 초 마다 자동클릭 레벨에 따라 자동클릭 하기
                 ChangeHealth(DataManager.Instance.autoDamage);   //  매 초 마다 자동 공격 데미지
             }
             
@@ -115,10 +92,15 @@ public class EnemyHealthSystem : MonoBehaviour
         DataManager.Instance.money += GameManager.Instance.currentStageIndex;
     }
 
-    private void ChangeAutoClickLevel()
+
+
+    private void NextRound()
     {
-        StopCoroutine(AutoClick(autoClickLevel));
-        autoClickLevel = DataManager.UpgradeLevelDb.Get(autoClickUpgradeId).level;
-        StartCoroutine(AutoClick(autoClickLevel));
+        GameManager.Instance.roundIndex++;
+        if (GameManager.Instance.roundIndex >= 11)
+        {
+            GameManager.Instance.roundIndex -= 10;
+            GameManager.Instance.currentStageIndex++;
+        }
     }
 }

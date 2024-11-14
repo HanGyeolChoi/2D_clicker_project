@@ -2273,11 +2273,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initialHealth: 10
   increasePower: 1.2
-  enemyImg: {fileID: 0}
+  enemyImg: {fileID: 1620443073}
   spritePath:
   - Enemy/Enemy1
   - Enemy/Enemy2
   - Enemy/Enemy3
+  enemyButton: {fileID: 1024639330}
   maxHealth: 0
   currentHealth: 0
 --- !u!114 &1923496258
@@ -2511,7 +2512,7 @@ MonoBehaviour:
   clickDamage: 1
   autoDamage: 0
   maxStage: 1
-  money: 5000
+  money: 10
 --- !u!4 &2029696895
 Transform:
   m_ObjectHideFlags: 0

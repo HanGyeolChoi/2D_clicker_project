@@ -59,7 +59,7 @@ public class UIItemSlot : MonoBehaviour
             imgIcon.sprite = sprite;
         }
 
-
+        btnBuy.onClick.RemoveAllListeners();
         btnBuy.onClick.AddListener(CallClickAction);
     }
 
@@ -74,9 +74,11 @@ public class UIItemSlot : MonoBehaviour
     //    return price;
     //}
 
+    private int time = 1;
     private void CallClickAction()
     {
         OnClickAction?.Invoke(upgradeLevelData.id);
+        SetData(upgradeLevelData);
     }
 
 

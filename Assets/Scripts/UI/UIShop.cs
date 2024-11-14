@@ -49,7 +49,6 @@ public class UIShop : MonoBehaviour
 
             slot.SetData(upgradeLevel);
             slot.OnClickAction += ShopManager.Instance.BuyUpgrade;
-
             slot.gameObject.SetActive(true);
             slot.transform.SetAsLastSibling();
 

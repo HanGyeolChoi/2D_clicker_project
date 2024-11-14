@@ -14,6 +14,7 @@ public class ShopManager : SingletoneBase<ShopManager>
             DataManager.Instance.money -= getPrice(DataManager.UpgradeLevelDb.Get(upgradeLevelData));
             DataManager.UpgradeLevelDb.Get(upgradeLevelData).level++;
             UpdateDamageStat();
+            
         }
             
     }
