@@ -9,7 +9,7 @@ public class ShopManager : SingletoneBase<ShopManager>
 
     public void BuyUpgrade(int upgradeLevelData)
     {
-        if (DataManager.Instance.money > getPrice(DataManager.UpgradeLevelDb.Get(upgradeLevelData)))
+        if (DataManager.Instance.money >= getPrice(DataManager.UpgradeLevelDb.Get(upgradeLevelData)))
         {
             DataManager.Instance.money -= getPrice(DataManager.UpgradeLevelDb.Get(upgradeLevelData));
             DataManager.UpgradeLevelDb.Get(upgradeLevelData).level++;

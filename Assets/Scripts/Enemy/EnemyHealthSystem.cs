@@ -42,6 +42,7 @@ public class EnemyHealthSystem : MonoBehaviour
     //public void ChangeHealth(BigInteger value)
     public void ChangeHealth(int value)
     {
+        if (value <= 0) return;
         currentHealth -= value;
 
         if(currentHealth <= 0)
@@ -49,14 +50,14 @@ public class EnemyHealthSystem : MonoBehaviour
             enemyButton.enabled = false;
             currentHealth = 0;
             OnDeath?.Invoke();
-            SpawnEnemy();
+            StartCoroutine(SpawnEnemy());
         }
     }
 
     IEnumerator SpawnEnemy()
     {
-        Initialize(GameManager.Instance.currentStageIndex);
         yield return new WaitForSeconds(1f);
+        Initialize(GameManager.Instance.currentStageIndex);
         enemyButton.enabled = true;
     }
 
