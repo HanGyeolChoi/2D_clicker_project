@@ -74,7 +74,6 @@ public class UIItemSlot : MonoBehaviour
     //    return price;
     //}
 
-    private int time = 1;
     private void CallClickAction()
     {
         OnClickAction?.Invoke(upgradeLevelData.id);

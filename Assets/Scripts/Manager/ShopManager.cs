@@ -21,7 +21,7 @@ public class ShopManager : SingletoneBase<ShopManager>
 
     private void UpdateDamageStat()
     {
-        int id = 3001;  // normal upgrade
+        int id = 3001;  // normal upgrade, 
         while (DataManager.UpgradeLevelDb.isExist(id))
         {
             UpgradeDamageList.Add(DataManager.UpgradeLevelDb.Get(id).level);
@@ -35,12 +35,13 @@ public class ShopManager : SingletoneBase<ShopManager>
             {
                 int upgradeId = DataManager.UpgradeLevelDb.Get(id).upgradeId;
                 int index = DataManager.SpecialUpgradeDb.Get(upgradeId).upgradeId - 1001;
+                Debug.Log(index);
                 UpgradeDamageList[index] *= DataManager.SpecialUpgradeDb.Get(upgradeId).multiplier * DataManager.UpgradeLevelDb.Get(id).level;
             }
             id++;
         }
 
-        id = 1001;
+        id = 1001;          // 
         DataManager.Instance.clickDamage = (int)UpgradeDamageList[id - 1001];
         id = 1002;
         while (DataManager.UpgradeDb.isExist(id))

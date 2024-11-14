@@ -27,10 +27,13 @@ public class UIShop : MonoBehaviour
     }
     public void SetShop(int shopId)
     {
-        foreach(UIItemSlot slot in slotList)
+        foreach (UIItemSlot slot in slotList)
         {
-            slotPool.Push(slot);
-            slot.gameObject.SetActive(false);
+            if (slot.gameObject.activeSelf == true)
+            { 
+                slotPool.Push(slot);
+                slot.gameObject.SetActive(false);
+            }
         }
         ShopData shopData = DataManager.ShopDb.Get(shopId);
 
