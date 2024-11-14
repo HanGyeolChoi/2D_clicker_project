@@ -23,4 +23,10 @@ public class DataBase<T> where T : DataModel
 
         return null;
     }
+
+    public bool isExist(int id)
+    {
+        if (db.ContainsKey(id)) return true;
+        return false;
+    }
 }

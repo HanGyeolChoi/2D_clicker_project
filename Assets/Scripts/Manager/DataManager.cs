@@ -30,28 +30,28 @@ public class DataManager : SingletoneBase<DataManager>
         }
     }
 
-    private DataBase<SpecialUpgradeData> specialUpgradeLevelDb;
-    public static DataBase<SpecialUpgradeData> SpecialUpgradeLevelDb
+    private DataBase<SpecialUpgradeData> specialUpgradeDb;
+    public static DataBase<SpecialUpgradeData> SpecialUpgradeDb
     {
         get
         {
-            if (Instance.specialUpgradeLevelDb == null)
+            if (Instance.specialUpgradeDb == null)
             {
                 List<SpecialUpgradeData> tempList = new List<SpecialUpgradeData>()
                 {
-                    new SpecialUpgradeData(2001, "클릭 배수 강화", "클릭 데미지를 25% 증가시킵니다.", 1001, 1.25f),
-                    new SpecialUpgradeData(2002, "기본 공격 강화", "기본 공격의 데미지를 25% 증가시킵니다.", 1002, 1.25f),
-                    new SpecialUpgradeData(2003, "자동 클릭", "5초마다 한번씩 자동으로 클릭합니다.", 1001, 1f)
+                    new SpecialUpgradeData(2001, "클릭 배수 강화", "클릭 데미지를 25% 증가시킵니다.", 1001, 1.25f, "ClickSprite"),
+                    new SpecialUpgradeData(2002, "기본 공격 강화", "기본 공격의 데미지를 25% 증가시킵니다.", 1002, 1.25f, "FirstUpgradeSprite"),
+                    new SpecialUpgradeData(2003, "자동 클릭", "5초마다 한번씩 자동으로 클릭합니다.", 1001, 1f, "ClickSprite")
                 };
                 // TODO: tempList = read SpecialUpgradeDB.json file
                 // 
 
-                Instance.specialUpgradeLevelDb = new DataBase<SpecialUpgradeData>(tempList);
+                Instance.specialUpgradeDb = new DataBase<SpecialUpgradeData>(tempList);
             }
 
 
 
-            return Instance.specialUpgradeLevelDb;
+            return Instance.specialUpgradeDb;
         }
     }
 

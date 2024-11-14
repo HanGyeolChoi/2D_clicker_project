@@ -1,5 +1,6 @@
 
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -26,6 +27,11 @@ public class UIShop : MonoBehaviour
     }
     public void SetShop(int shopId)
     {
+        foreach(UIItemSlot slot in slotList)
+        {
+            slotPool.Push(slot);
+            slot.gameObject.SetActive(false);
+        }
         ShopData shopData = DataManager.ShopDb.Get(shopId);
 
         List<int> upgradeLevelList = shopData.upgradeLevelList;
@@ -42,6 +48,12 @@ public class UIShop : MonoBehaviour
                 slot = slotPool.Pop();
 
             slot.SetData(upgradeLevel);
+            slot.OnClickAction += ShopManager.Instance.BuyUpgrade;
+
+            slot.gameObject.SetActive(true);
+            slot.transform.SetAsLastSibling();
+
+            slotList.Add(slot);
         }
     }
 

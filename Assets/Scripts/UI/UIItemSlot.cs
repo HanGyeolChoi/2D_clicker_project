@@ -24,17 +24,40 @@ public class UIItemSlot : MonoBehaviour
     public void SetData(UpgradeLevelData upgradeLevelData)
     {
         this.upgradeLevelData = upgradeLevelData;
-        var item = DataManager.UpgradeDb.Get(upgradeLevelData.upgradeId);
 
-        txtUpgradeName.text = item.name;
-        txtUpgradeDescription.text = item.description;
-        txtLevel.text = "Lv. " + upgradeLevelData.level.ToString();
-        // BigInteger price = getPrice(upgradeLevelData);
-        int price = getPrice(upgradeLevelData);
-        txtUpgradePrice.text = $"{price} G";
+        if (upgradeLevelData.upgradeId < 2000)
+        {
+            var item = DataManager.UpgradeDb.Get(upgradeLevelData.upgradeId);
 
-        var sprite = Resources.Load<Sprite>($"{spritePath + item.spritePath}");
-        imgIcon.sprite = sprite;
+
+
+            txtUpgradeName.text = item.name;
+            txtUpgradeDescription.text = item.description;
+            txtLevel.text = "Lv. " + upgradeLevelData.level.ToString();
+            // BigInteger price = getPrice(upgradeLevelData);
+            int price = getPrice(upgradeLevelData);
+            txtUpgradePrice.text = $"{price} G";
+
+            var sprite = Resources.Load<Sprite>($"{spritePath + item.spritePath}");
+            imgIcon.sprite = sprite;
+        }
+
+        else //if (upgradeLevelData.upgradeId >= 2000)
+        {
+            var item = DataManager.SpecialUpgradeDb.Get(upgradeLevelData.upgradeId);
+
+
+
+            txtUpgradeName.text = item.name;
+            txtUpgradeDescription.text = item.description;
+            txtLevel.text = "Lv. " + upgradeLevelData.level.ToString();
+            // BigInteger price = getPrice(upgradeLevelData);
+            int price = getPrice(upgradeLevelData);
+            txtUpgradePrice.text = $"{price} G";
+
+            var sprite = Resources.Load<Sprite>($"{spritePath + item.spritePath}");
+            imgIcon.sprite = sprite;
+        }
 
 
         btnBuy.onClick.AddListener(CallClickAction);

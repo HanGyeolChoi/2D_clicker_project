@@ -1,14 +1,16 @@
+using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
 
 public class GameManager : SingletoneBase<GameManager>
 {
-    [SerializeField] private TextMeshProUGUI stageTxt;
+
     public int currentStageIndex = 1;
-    private int roundNum = 1;
+    public int roundIndex = 1;
     public float spawnInterval = 1f;
 
+    public event Action OnInitialize;
     private void Start()
     {
         //if(savefile)
@@ -20,14 +22,12 @@ public class GameManager : SingletoneBase<GameManager>
     {
         while (true)
         {
-            UpdateStageUI();
+            OnInitialize?.Invoke();
             yield return new WaitForSeconds(spawnInterval);
-
+            
         }
     }
 
-    private void UpdateStageUI()
-    {
-        stageTxt.text = $"{currentStageIndex}";
-    }
+    
+
 }
