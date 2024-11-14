@@ -7,8 +7,18 @@ public class Util
     {
         int placeN = 0;
         BigInteger value = initialValue;
+        string remainder = "";
         while (value >= 1000 && placeN < numberUnitArr.Length - 1)
         {
+            if (value % 1000 < 10)
+            {
+                remainder = $"00{value % 1000}";
+            }
+            else if (value % 1000 < 100)
+            {
+                remainder = $"0{value % 1000}";
+            }
+            else remainder = (value % 1000).ToString();
             value /= 1000;
             placeN++;
         }
@@ -21,6 +31,6 @@ public class Util
 
             return firstThreeDigit + "." + nextTwoDigit + "e" + $"{BigInteger.Log10(initialValue) - 2}";
         }
-        return value.ToString() + numberUnitArr[placeN];
+        return $"{value.ToString()}.{remainder} {numberUnitArr[placeN]}";
     }
 }

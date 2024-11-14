@@ -49,13 +49,14 @@ public class EnemyHealthSystem : MonoBehaviour
             enemyButton.enabled = false;
             currentHealth = 0;
             OnDeath?.Invoke();
+            SpawnEnemy();
         }
     }
 
     IEnumerator SpawnEnemy()
     {
-        yield return new WaitForSeconds(1f);
         Initialize(GameManager.Instance.currentStageIndex);
+        yield return new WaitForSeconds(1f);
         enemyButton.enabled = true;
     }
 
